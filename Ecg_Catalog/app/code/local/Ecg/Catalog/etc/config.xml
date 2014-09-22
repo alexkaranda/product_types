@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Ecg
+ * @package     Ecg_Catalog
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Ecg_Catalog>
+            <version>1.0.0.0</version>
+        </Ecg_Catalog>
+    </modules>
+
+    <global>
+        <blocks>
+            <ecg_catalog>
+                <class>Ecg_Catalog_Block</class>
+            </ecg_catalog>
+        </blocks>
+
+        <models>
+            <ecg_catalog>
+                <class>Ecg_Catalog_Model</class>
+                <resourceModel>ecg_catalog_resource</resourceModel>
+            </ecg_catalog>
+            <ecg_catalog_resource>
+                <class>Ecg_Catalog_Model_Resource</class>
+            </ecg_catalog_resource>
+        </models>
+
+        <resources>
+            <ecg_catalog_setup>
+                <setup>
+                    <module>Ecg_Catalog</module>
+                </setup>
+            </ecg_catalog_setup>
+        </resources>
+
+        <helpers>
+            <ecg_catalog>
+                <class>Ecg_Catalog_Helper</class>
+            </ecg_catalog>
+        </helpers>
+
+
+        <catalog>
+            <product>
+                <type>
+
+                    <custom translate="label" module="ecg_catalog">
+                        <label>Custom Product</label>
+                        <model>ecg_catalog/product_type_custom</model>
+                        <price_model>ecg_catalog/product_type_custom_price</price_model>
+                        <composite>1</composite>
+                        <allow_product_types>
+                            <simple/>
+                        </allow_product_types>
+                        <index_priority>100</index_priority>
+                        <price_indexer>ecg_catalog/product_indexer_price_custom</price_indexer>
+                    </custom>
+
+                </type>
+            </product>
+        </catalog>
+
+        <events>
+            <catalog_product_prepare_save>
+                <observers>
+                    <ecg_catalog>
+                        <class>ecg_catalog/product_type_custom_observer</class>
+                        <method>catalogProductPrepareSave</method>
+                    </ecg_catalog>
+                </observers>
+            </catalog_product_prepare_save>
+            <catalog_model_product_duplicate>
+                <observers>
+                    <ecg_catalog>
+                        <class>ecg_catalog/product_type_custom_observer</class>
+                        <method>catalogProductDuplicate</method>
+                    </ecg_catalog>
+                </observers>
+            </catalog_model_product_duplicate>
+        </events>
+
+    </global>
+
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ecg_Catalog before="Mage_Adminhtml">Ecg_Catalog_Adminhtml</Ecg_Catalog>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <ecg_catalog>
+                    <file>ecg_catalog.xml</file>
+                </ecg_catalog>
+            </updates>
+        </layout>
+
+        <!-- add ability to add product to cart from backend -->
+        <sales>
+            <order>
+                <create>
+                    <available_product_types>
+                        <custom/>
+                    </available_product_types>
+                </create>
+            </order>
+        </sales>
+
+    </adminhtml>
+
+
+
+    <frontend>
+        <layout>
+            <updates>
+                <ecg_catalog>
+                    <file>ecg_catalog.xml</file>
+                </ecg_catalog>
+            </updates>
+        </layout>
+    </frontend>
+
+</config>

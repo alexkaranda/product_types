@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <!--
+    Layout handle for ecg_custom products
+    -->
+    <adminhtml_catalog_product_custom>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>customTab</name>
+                <block>ecg_catalog/adminhtml_catalog_product_edit_tab_super_custom</block>
+            </action>
+            <action method="removeTab">
+                <name>customer_options</name>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_custom>
+
+    <!-- Load Custom Tab by Ajax at first time -->
+    <adminhtml_catalog_product_supercustom>
+        <block type="core/text_list" name="root" output="toHtml"> <!-- @toHtml? -->
+            <block type="ecg_catalog/adminhtml_catalog_product_edit_tab_super_custom"
+                   name="ecg.catalog.product.edit.tab.super.custom"/>
+            <block type="adminhtml/widget_grid_serializer" name="custom_grid_serializer">
+                <action method="initSerializerBlock">
+                    <grid_block_name>ecg.catalog.product.edit.tab.super.custom</grid_block_name>
+                    <data_callback>getSelectedCustomProducts</data_callback>
+                    <hidden_input_name>links[custom]</hidden_input_name>
+                    <reload_param_name>products_custom</reload_param_name>
+                </action>
+                <action method="addColumnInputName">
+                    <input_name>can_edit_qty</input_name>
+                    <input_name>qty</input_name>
+                    <input_name>position</input_name>
+                </action>
+            </block>
+        </block>
+    </adminhtml_catalog_product_supercustom>
+    <!--/Load Custom Tab by Ajax at first time -->
+
+    <!-- Load Custom Tab by Ajax -->
+    <adminhtml_catalog_product_supercustomgridonly>
+        <block type="core/text_list" name="root">
+            <block type="ecg_catalog/adminhtml_catalog_product_edit_tab_super_custom"
+                   name="ecg.catalog.product.edit.tab.super.custom"/>
+        </block>
+    </adminhtml_catalog_product_supercustomgridonly>
+    <!-- /Load Custom Tab by Ajax -->
+
+    <!-- AJAX FORM WHEN CREATE ORDER FROM ADMIN-->
+    <PRODUCT_TYPE_custom>
+        <reference name="product.composite.fieldset">
+            <block type="adminhtml/catalog_product_composite_fieldset_grouped"
+                   name="product.composite.fieldset.custom"
+                   before="product.composite.fieldset.options"
+                   template="ecg_catalog/product/composite/fieldset/custom.phtml"/>
+        </reference>
+    </PRODUCT_TYPE_custom>
+    <!-- /AJAX FORM WHEN CREATE ORDER FROM ADMIN-->
+
+    <!-- Wish List -->
+    <adminhtml_customer_wishlist>
+        <reference name="customer.wishlist.edit.tab">
+            <action method="addProductConfigurationHelper">
+                <type>custom</type>
+                <name>ecg_catalog/catalog_product_custom</name>
+            </action>
+        </reference>
+    </adminhtml_customer_wishlist>
+    <!--/Wish List -->
+
+    <!-- SALES -->
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="order_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="order_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_shipment_new>
+        <reference name="order_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_sales_order_shipment_view>
+        <reference name="shipment_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_shipment_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="order_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="order_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_items">
+            <action method="addColumnRender"><column>name</column><block>ecg_catalog/adminhtml_sales_items_column_name</block><template>sales/items/column/name.phtml</template><type>custom</type></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+    <!-- /SALES -->
+
+</layout>
